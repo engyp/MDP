@@ -1,0 +1,24 @@
+arduino
+
+void setup() {
+	Serial.begin(115200);
+}
+
+void loop() {
+	Serial.println("This is message from arduino");
+	delay(2000);
+}
+
+
+rpi
+
+import serial
+
+serialCon = serial.Serial('/dev/ttyACM0', 115200)
+
+while True:
+	if (serialCon.in_waiting > 0)
+		line = serialCon.readline()
+		print(line)
+
+		serialCon.write("This is message from rpi".encode('ascii'))
