@@ -18,7 +18,7 @@ print 'Connected'
 
 # awaiting for message
 while True:
-	data = conn.recv(1024)
+	data = conn.recv(1024).decode("utf-8")
 	print 'I sent a message back in response to: ' + data
 	reply = ''
 
