@@ -18,7 +18,7 @@ class SocketConnection():
 
 			print '\nSocket connecting...'
 			self.conn, self.client_addr = self.socket.accept()
-			print 'Connected'
+			print 'Socket Connected'
 
 		except Exception as e:
 			raise Exception('Socket connection error: {}'.format(str(e)))
@@ -33,7 +33,7 @@ class SocketConnection():
 			if self.socket:
 				self.socket.close()
 				self.socket = None
-				
+
 		except Exception as e:
 			raise Exception("Socket disconnection error: {}".format(str(e)))
 
