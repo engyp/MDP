@@ -25,7 +25,7 @@ class BluetoothConnection():
 	                           
 	        print("Waiting for connection on RFCOMM channel %d" % self.port)
 
-	        client_sock, client_info = self.server_sock.accept()
+	        self.client_sock, self.client_info = self.server_sock.accept()
 	        print("Accepted connection from ", client_info)
 	    
 	    except Exception as e:
