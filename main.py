@@ -5,7 +5,7 @@ import sys, traceback, threading
 
 
 def bluetooth_loop():
-	while True:
+	#while True:
 		try:
 			btConnect = BluetoothConnection()
 			btConnect.disconnect()
@@ -24,7 +24,7 @@ def bluetooth_loop():
 			traceback.print_exc(limit=10, file=sys.stdout)
 
 def pc_loop():
-	while True:
+	#while True:
 		try:
 			pcConnect = SocketConnection()
 			pcConnect.disconnect()
