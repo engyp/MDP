@@ -10,5 +10,5 @@ try:
 		print("received [%s]" % data)
 	btConnect.disconnect()
 	
-	except IOError:
-		pass
+except IOError:
+	pass
