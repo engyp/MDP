@@ -1,11 +1,11 @@
-
+from bluetooth_server import BluetoothConnection
 
 btConnect = BluetoothConnection()
 
 try:
 	btConnect.connect()
 	while True:
-		data = self.client_sock.recv(1024)
+		data = client_sock.recv(1024)
 		if len(data) == 0: break
 		print("received [%s]" % data)
 	btConnect.disconnect()
