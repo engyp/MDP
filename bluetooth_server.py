@@ -54,7 +54,7 @@ class BluetoothConnection():
 		try:
 			if msg is None:
 				return ""
-			else
+			else:
 				msg = self.btcon.recv(2048).decode("utf-8")
 				return msg
 		
