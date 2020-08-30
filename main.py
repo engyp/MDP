@@ -34,6 +34,5 @@ def pc_loop():
 			print("Main exec - Socket connection error: ")
 			traceback.print_exc(limit=10, file=sys.stdout)
 
-
-bluetooth_loop()
-pc_loop()
+threading.Thread(target = bluetooth_loop, name = 'Bluetooth Thread').start()
+threading.Thread(target = pc_loop, name = 'PC Thread').start()
