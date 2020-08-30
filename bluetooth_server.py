@@ -43,7 +43,7 @@ class BluetoothConnection():
 
 	def send(self, msg):
 		try:
-            self.btCon.send(msg)
+			self.btCon.send(msg)
         except Exception as e:
             print('Bluetooth send error')
 
