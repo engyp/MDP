@@ -7,6 +7,7 @@ try:
 	btConnect.connect()
 	while True:
 		data = btConnect.receive()
+		if data is None: break
 		print("received [%s]" % data)
 	btConnect.disconnect()
 	
