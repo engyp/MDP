@@ -43,9 +43,9 @@ def disconnect():
 try:
 	connect()
     while True:
-        data = client_sock.recv(1024)
-        if len(data) == 0: break
-        print("received [%s]" % data)
+    	data = client_sock.recv(1024)
+    	if len(data) == 0: break
+    	print("received [%s]" % data)
     disconnect()
 except IOError:
     pass
