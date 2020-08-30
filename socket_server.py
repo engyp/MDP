@@ -15,7 +15,7 @@ class SocketConnection():
 			self.socket.bind((self.host, self.port))
 			self.socket.listen(1)
 
-			print 'Socket connecting...'
+			print '\nSocket connecting...'
 			self.conn, self.client_addr = self.socket.accept()
 			print 'Connected'
 

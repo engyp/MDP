@@ -9,7 +9,7 @@ s.connect((HOST,PORT))
 while True:
 	command = input('Enter your command: ')
 	s.send(command.encode('utf-8'))
-	reply = s.recv(2048).decode("utf-8")
-	if reply == 'terminate':
-		break
-	print(reply)
+	#reply = s.recv(2048).decode("utf-8")
+	#if reply == 'terminate':
+	#	break
+	#print(reply)

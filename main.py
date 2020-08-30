@@ -14,6 +14,9 @@ def bluetooth_loop():
 				if data is None: break
 				print("received [%s]" % data)
 			btConnect.disconnect()
+
+		except KeyboardInterrupt:
+			btConnect.disconnect()
 			
 		except Exception:
 			print("Main exec - Bluetooth connection error: ")
@@ -28,6 +31,9 @@ def pc_loop():
 				data = pcConnect.receive()
 				if data is None: break
 				print("received [%s]" % data) 
+			pcConnect.disconnect()
+
+		except KeyboardInterrupt:
 			pcConnect.disconnect()
 
 		except Exception:
