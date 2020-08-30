@@ -5,6 +5,7 @@
 # $Id: rfcomm-server.py 518 2007-08-10 07:20:07Z albert $
 
 from bluetooth import *
+import sys, traceback
 
 class BluetoothConnection():
 	def __init__(self, port=8, uuid="94f39d29-7d6d-437d-973b-fba39e49d4ee"):
