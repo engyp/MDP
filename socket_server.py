@@ -9,8 +9,8 @@ class SocketConnection():
         self.connection = None
         self.client_addr = None
 
-    def connect(self):
-    	try:
+	def connect(self):
+		try:
 			self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 			self.socket.bind((self.host, self.port))
 			self.socket.listen(1)
