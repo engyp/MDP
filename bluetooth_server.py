@@ -11,6 +11,8 @@ class BluetoothConnection():
 	def connect(self):
 	    try:
 	        self.server_sock=BluetoothSocket( RFCOMM )
+	        self.server_sock.setblocking(True)
+            self.server_sock.settimeout(1000.0)
 	        self.server_sock.bind(("",self.port)) # channel 8
 	        self.server_sock.listen(1)
 
