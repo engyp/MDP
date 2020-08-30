@@ -28,7 +28,7 @@ def connect():
 		print("Accepted connection from ", client_info)
 	
 	except Exception as e:
-        print("Bluetooth connection error")
+		print("Bluetooth connection error")
 
 def disconnect():
 	try:
