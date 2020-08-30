@@ -11,4 +11,4 @@ try:
 	btConnect.disconnect()
 	
 except Exception:
-	print("Bluetooth connection error")
+	print("Main exec - Bluetooth connection error")

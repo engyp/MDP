@@ -30,6 +30,7 @@ class BluetoothConnection():
 	    
 	    except Exception as e:
 	        print("Bluetooth connection error")
+	        traceback.print_exc(limit=10, file=sys.stdout)
 
 	def disconnect(self):
 	    try:
