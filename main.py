@@ -43,4 +43,4 @@ def pc_loop():
 			traceback.print_exc(limit=10, file=sys.stdout)
 
 threading.Thread(target = bluetooth_loop, name = 'Bluetooth Thread').start()
-#threading.Thread(target = pc_loop, name = 'PC Thread').start()
+threading.Thread(target = pc_loop, name = 'PC Thread').start()
