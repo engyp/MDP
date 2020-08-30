@@ -31,7 +31,7 @@ def pc_loop():
 			pcConnect.connect()
 			while True:
 				data = pcConnect.receive()
-				if data is None: break
+				if data == 'quit': break
 				print("received [%s]" % data) 
 			pcConnect.disconnect()
 
