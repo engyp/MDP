@@ -25,7 +25,7 @@ class BluetoothConnection():
 	                           
 	        print("Waiting for connection on RFCOMM channel %d" % self.port)
 
-	        self.client_sock, self.client_info = self.server_sock.accept()
+	        self.btCon, self.client_info = self.server_sock.accept()
 	        print("Accepted connection from ", client_info)
 	    
 	    except Exception as e:
@@ -33,9 +33,22 @@ class BluetoothConnection():
 
 	def disconnect(self):
 	    try:
-	        self.client_sock.close()
+	        self.btCon.close()
 	        self.server_sock.close()
 	        print("Bluetooth disconnected")
 
 	    except Exception as e:
 	        print("Bluetooth disconnection error")
+
+	def send(self, msg):
+		try:
+            self.btCon.send(msg)
+        except Exception as e:
+            print('Bluetooth send error')
+
+    def receive(self):
+        try:
+            msg = self.btCon.recv(2048).decode("utf-8")
+            return msg
+        except Exception as e:
+            print('Bluetooth receive error')
