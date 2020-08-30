@@ -1,41 +1,43 @@
 import socket
 
-HOST = '' # Server IP or Hostname
-PORT = 12345 # Pick an open Port (1000+ recommended), must match the client sport
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-print 'Socket created'
 
-#managing error exception
-try:
-	s.bind((HOST, PORT))
-except socket.error:
-	print 'Bind failed '
+class SocketConnection():
+	def __init__(self, port=12345):
+		self.host = ''
+        self.port = port
+        self.socket = None
+        self.connection = None
+        self.client_addr = None
 
-s.listen(5)
-print 'Socket awaiting messages'
-(conn, addr) = s.accept()
-print 'Connected'
+    def connect(self):
+    	try:
+			self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+			self.socket.bind((self.host, self.port))
+			self.socket.listen(1)
 
-# awaiting for message
-while True:
-	data = conn.recv(2048).decode("utf-8")
-	print 'I sent a message back in response to: ' + data
-	reply = ''
+			print 'Socket connecting...'
+			self.conn, self.client_addr = self.socket.accept()
+			print 'Connected'
 
-	# process your message
-	if data == 'Hello':
-		reply = 'Hi, back!'
-	elif data == 'This is important':
-		reply = 'OK, I have done the important thing you have asked me!'
+		except Exception as e:
+			raise Exception('Socket connection error: {}'.format(str(e)))
 
-	#and so on and on until...
-	elif data == 'quit':
-		conn.send('Terminating')
-		break
-	else:
-		reply = 'Unknown command'
+	def disconnect(self):
+		try:
+			self.conn.close() 
+			self.socket.close()
+		except Exception as e:
+			raise Exception("Socket disconnection error: {}".format(str(e)))
 
-	# Sending reply
-	conn.send(reply)
+	def send(self, msg):
+		try:
+			self.conn.send(msg.encode())
+		except Exception as e:
+			raise Exception('Socket send error: {}'.format(str(e)))
 
-conn.close() # Close connections
+	def receive(self):
+		try:
+			msg = self.conn.recv(2048).decode("utf-8")
+			return msg
+		except Exception as e:
+			raise Exception('Socket receive error: {}'.format(str(e)))
