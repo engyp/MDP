@@ -8,6 +8,7 @@ def bluetooth_loop():
 	while True:
 		try:
 			btConnect = BluetoothConnection()
+			btConnect.disconnect()
 			btConnect.connect()
 			while True:
 				data = btConnect.receive()
