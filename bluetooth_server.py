@@ -12,7 +12,7 @@ def __init__(self, port=8, uuid="94f39d29-7d6d-437d-973b-fba39e49d4ee"):
 	self.server_sock = None
 	self.uuid = uuid
 
-def connect():
+def connect(self):
 	try:
 		self.server_sock=BluetoothSocket( RFCOMM )
 		self.server_sock.bind(("",self.port)) # channel 8
@@ -31,7 +31,7 @@ def connect():
 	except Exception as e:
 		print("Bluetooth connection error")
 
-def disconnect():
+def disconnect(self):
 	try:
 		self.client_sock.close()
 		self.server_sock.close()
@@ -42,11 +42,11 @@ def disconnect():
 
 
 try:
-	connect()
+	connect(self)
 	while True:
 		data = self.client_sock.recv(1024)
 		if len(data) == 0: break
 		print("received [%s]" % data)
-	disconnect()
+	disconnect(self)
 except IOError:
 	pass
