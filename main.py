@@ -8,6 +8,7 @@ def bluetooth_loop():
 	while True:
 		try:
 			btConnect = BluetoothConnection()
+			btConnect.disconnect()
 			btConnect.connect()
 			while True:
 				data = btConnect.receive()
@@ -26,6 +27,7 @@ def pc_loop():
 	while True:
 		try:
 			pcConnect = SocketConnection()
+			pcConnect.disconnect()
 			pcConnect.connect()
 			while True:
 				data = pcConnect.receive()
