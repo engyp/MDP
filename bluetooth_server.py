@@ -52,12 +52,8 @@ class BluetoothConnection():
 
 	def receive(self):
 		try:
-			if msg is None:
-				return ""
-			else:
-				msg = self.btcon.recv(2048).decode("utf-8")
-				return msg
-		
+			msg = self.btcon.recv(2048).decode("utf-8")
+			return msg
 		except Exception as e:
 			print("Bluetooth receive error: ")
 			traceback.print_exc(limit=10, file=sys.stdout)
