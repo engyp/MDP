@@ -31,7 +31,7 @@ class SocketConnection():
 
 	def send(self, msg):
 		try:
-			self.conn.send(msg.encode())
+			self.conn.send(msg)
 		except Exception as e:
 			raise Exception('Socket send error: {}'.format(str(e)))
 
