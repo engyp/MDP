@@ -29,8 +29,14 @@ class BluetoothConnection():
 
 	def disconnect(self):
 	    try:
-	        self.btcon.close()
-	        self.server_sock.close()
+	        if self.btcon: 
+	        	self.btcon.close()
+	        	self.btcon = None
+	        
+	        if self.server_sock:
+	        	self.server_sock.close()
+	        	self.server_sock = None
+	        	
 	        print("Bluetooth disconnected")
 
 	    except Exception as e:
