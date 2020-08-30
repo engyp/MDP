@@ -44,12 +44,12 @@ class BluetoothConnection():
 	def send(self, msg):
 		try:
 			self.btCon.send(msg)
-        except Exception as e:
-            print('Bluetooth send error')
+		except Exception as e:
+			print('Bluetooth send error')
 
-    def receive(self):
-        try:
-            msg = self.btCon.recv(2048).decode("utf-8")
-            return msg
-        except Exception as e:
-            print('Bluetooth receive error')
+	def receive(self):
+		try:
+			msg = self.btCon.recv(2048).decode("utf-8")
+			return msg
+		except Exception as e:
+			print('Bluetooth receive error')
