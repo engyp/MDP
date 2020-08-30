@@ -33,3 +33,7 @@ def pc_loop():
 		except Exception:
 			print("Main exec - Socket connection error: ")
 			traceback.print_exc(limit=10, file=sys.stdout)
+
+
+bluetooth_loop()
+pc_loop()
