@@ -37,7 +37,7 @@ def disconnect():
 		print("Bluetooth disconnected")
 
 	except Exception as e:
-        print("Bluetooth disconnection error")
+		print("Bluetooth disconnection error")
 
 
 try:
