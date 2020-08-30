@@ -5,8 +5,8 @@ class SocketConnection():
 	def __init__(self, port=12345):
 		self.host = ''
 		self.port = port
+		self.conn = None
 		self.socket = None
-		self.connection = None
 		self.client_addr = None
 
 	def connect(self):

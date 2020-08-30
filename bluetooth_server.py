@@ -4,6 +4,7 @@ import sys, traceback
 class BluetoothConnection():
 	def __init__(self, port=8, uuid="94f39d29-7d6d-437d-973b-fba39e49d4ee"):
 	    self.port = port
+	    self.btcon = None
 	    self.server_sock = None
 	    self.uuid = uuid
 
@@ -36,7 +37,7 @@ class BluetoothConnection():
 	        if self.server_sock:
 	        	self.server_sock.close()
 	        	self.server_sock = None
-	        	
+
 	        print("Bluetooth disconnected")
 
 	    except Exception as e:
