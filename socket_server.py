@@ -25,8 +25,15 @@ class SocketConnection():
 
 	def disconnect(self):
 		try:
-			self.conn.close() 
-			self.socket.close()
+			if self.conn:
+				self.conn.close()
+				self.conn = None
+				print("Socket disconnected") 
+
+			if self.socket:
+				self.socket.close()
+				self.socket = None
+				
 		except Exception as e:
 			raise Exception("Socket disconnection error: {}".format(str(e)))
 

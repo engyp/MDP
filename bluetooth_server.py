@@ -11,8 +11,6 @@ class BluetoothConnection():
 	def connect(self):
 	    try:
 	        self.server_sock=BluetoothSocket( RFCOMM )
-	        self.server_sock.setblocking(True)
-            self.server_sock.settimeout(1000.0)
 	        self.server_sock.bind(("",self.port)) # channel 8
 	        self.server_sock.listen(1)
 
@@ -35,13 +33,12 @@ class BluetoothConnection():
 	        if self.btcon: 
 	        	self.btcon.close()
 	        	self.btcon = None
+	        	print("Bluetooth disconnected")
 	        
 	        if self.server_sock:
 	        	self.server_sock.close()
 	        	self.server_sock = None
-
-	        print("Bluetooth disconnected")
-
+	        
 	    except Exception as e:
 	        print("Bluetooth disconnection error: ")
 	        traceback.print_exc(limit=10, file=sys.stdout)
