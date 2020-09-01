@@ -14,6 +14,7 @@ def bluetooth_loop():
 				data = btConnect.receive()
 				if data is None: break
 				print("received [%s]" % data)
+				btConnect.send("reply back from rpi".encode('utf-8'))
 			btConnect.disconnect()
 
 		except KeyboardInterrupt:
@@ -22,13 +23,6 @@ def bluetooth_loop():
 		except Exception:
 			print("Main exec - Bluetooth connection error: ")
 			traceback.print_exc(limit=10, file=sys.stdout)
-
-def bluetooth_loop2():
-	#while True:
-	while True:
-		data = input('Enter your msg: ')
-		btConnect.send(data.encode('utf-8'))
-
 
 def pc_loop():
 	#while True:
@@ -50,5 +44,4 @@ def pc_loop():
 			traceback.print_exc(limit=10, file=sys.stdout)
 
 threading.Thread(target = bluetooth_loop, name = 'Bluetooth Thread').start()
-threading.Thread(target = bluetooth_loop2, name = 'Bluetooth Thread2').start()
 threading.Thread(target = pc_loop, name = 'PC Thread').start()
