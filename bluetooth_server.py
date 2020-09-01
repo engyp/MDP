@@ -19,7 +19,7 @@ class BluetoothConnection():
 	                           service_classes = [ self.uuid, SERIAL_PORT_CLASS ],
 	                           profiles = [ SERIAL_PORT_PROFILE ])
 	                           
-	        print("Waiting for connection on RFCOMM channel %d" % self.port)
+	        print("\nWaiting for connection on RFCOMM channel %d" % self.port)
 
 	        self.btcon, self.client_info = self.server_sock.accept()
 	        print("Accepted connection from ", self.client_info)

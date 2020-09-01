@@ -27,7 +27,7 @@ def bluetooth_loop2():
 	#while True:
 	while True:
 		data = input('Enter your msg: ')
-		btConnect.send(data)
+		btConnect.send(data.encode('utf-8'))
 
 
 def pc_loop():
