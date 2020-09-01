@@ -25,21 +25,10 @@ def bluetooth_loop():
 
 def bluetooth_loop2():
 	#while True:
-		try:
-			btConnect = BluetoothConnection()
-			btConnect.disconnect()
-			btConnect.connect()
-			while True:
-				data = input('Enter your msg: ')
-				btConnect.send(data)
-			btConnect.disconnect()
+	while True:
+		data = input('Enter your msg: ')
+		btConnect.send(data)
 
-		except KeyboardInterrupt:
-			btConnect.disconnect()
-			
-		except Exception:
-			print("Main exec - Bluetooth connection error: ")
-			traceback.print_exc(limit=10, file=sys.stdout)
 
 def pc_loop():
 	#while True:
