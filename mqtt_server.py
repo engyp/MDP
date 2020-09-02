@@ -6,7 +6,7 @@ import paho.mqtt.client as mqtt
 
 class MqttServer(): 
 
-    def __init__(self, hostname="192.168.30.1"):
+    def __init__(self, hostname="192.168.30.1") -> None:
         self.hostname = hostname
         self.btConnect = None
         self.pcConnect = None

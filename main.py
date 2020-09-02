@@ -3,6 +3,7 @@ from socket_server import SocketConnection
 from serial_server import SerialConnection
 import sys, traceback, threading
 import paho.mqtt.publish as publish
+import mqtt_server
 
 
 def bluetooth_loop(mqttServer):
@@ -69,7 +70,7 @@ def arduino_loop(mqttServer):
 			traceback.print_exc(limit=10, file=sys.stdout)
 
 
-mqttServer = MqttServer()
+mqttServer = mqtt_server.MqttServer()
 
 threading.Thread(target=bluetooth_loop, args=((mqttServer,)), name = 'Bluetooth Thread').start()
 threading.Thread(target=pc_loop, args=((mqttServer,)), name = 'PC Thread').start()
