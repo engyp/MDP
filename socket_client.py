@@ -1,4 +1,5 @@
 import socket
+import paho.mqtt.publish as publish
 
 HOST = '192.168.30.1' # Enter IP or Hostname of your server
 PORT = 12345 # Pick an open Port (1000+ recommended), must match the server port
@@ -9,6 +10,7 @@ s.connect((HOST,PORT))
 while True:
 	command = input('Enter your command: ')
 	s.send(command.encode('utf-8'))
+	publish.single("rpi/android", command.encode('utf-8'), hostname="192.168.30.1")
 	#reply = s.recv(2048).decode("utf-8")
 	#if reply == 'terminate':
 	#	break
