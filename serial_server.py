@@ -1,7 +1,7 @@
 import serial
 import sys, traceback
 
-class SerialConnection(Connection):
+class SerialConnection():
 	def __init__(self, baud_rate = 115200, port = '/dev/ttyACM0'):
 		self.port = port
 		self.serialCon = None
