@@ -48,8 +48,8 @@ class MqttServer():
             # Create an MQTT client and attach our routines to it.
             self.client = mqtt.Client()
             self.client.connect(self.hostname, 1883, 60)
-            self.client.on_connect = on_connect
-            self.client.on_message = on_message
+            self.client.on_connect = self.on_connect
+            self.client.on_message = self.on_message
 
             self.client.message_callback_add("rpi/android", self.on_message_android)
              
