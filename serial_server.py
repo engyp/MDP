@@ -22,9 +22,9 @@ class SerialConnection(Connection):
 				self.serialCon.close()
 				print("\n Serial disconnected")
 
-			except Exception:
-				print("Serial disconnection error: ")
-				traceback.print_exc(limit=10, file=sys.stdout)
+		except Exception as e:
+			print("Serial disconnection error: ")
+			traceback.print_exc(limit=10, file=sys.stdout)
 
 	def send(self, msg):
 		try:

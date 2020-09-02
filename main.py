@@ -50,7 +50,7 @@ def arduino_loop():
 			sConnect.disconnect()
 			sConnect.connect()
 			while True:
-				if (serialCon.in_waiting > 0)
+				if (serialCon.in_waiting > 0):
 					data = sConnect.receive()
 					if data is None: break
 					print("received [%s]" % data) 
