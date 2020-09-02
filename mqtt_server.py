@@ -36,7 +36,7 @@ def on_message(client, userdata, msg):
 def on_message_android(client, userdata, msg):
     message = str(msg.payload.decode("utf-8"))
     if message.split(",")[0] == "android":
-        sConnect.send(message.split(",")[1])
+        pcConnect.send(message.split(",")[1])
 
 def run():
     try:
