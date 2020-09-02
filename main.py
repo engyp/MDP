@@ -72,7 +72,7 @@ def arduino_loop(mqttServer):
 
 mqttServer = mqtt_server.MqttServer()
 
-threading.Thread(target=bluetooth_loop, args=((server,)), name = 'Bluetooth Thread', daemon=True).start()
-threading.Thread(target=pc_loop, args=((server,)), name = 'PC Thread', daemon=True).start()
+threading.Thread(target=bluetooth_loop, args=((mqttServer,)), name = 'Bluetooth Thread').start()
+threading.Thread(target=pc_loop, args=((mqttServer,)), name = 'PC Thread').start()
 
 mqttServer.run()

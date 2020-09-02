@@ -39,9 +39,10 @@ class MqttServer():
     def on_message_android(client, userdata, msg):
         message = str(msg.payload.decode("utf-8"))
         if message.split(",")[0] == "android":
+            print("hi")
             self.pcConnect.send(message.split(",")[1])
 
-    def run():
+    def run(self):
         try:
             # Create an MQTT client and attach our routines to it.
             self.client = mqtt.Client()
