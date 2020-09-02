@@ -47,12 +47,13 @@ class MqttServer():
         try:
             # Create an MQTT client and attach our routines to it.
             self.client = mqtt.Client()
+            self.client.connect(self.hostname, 1883, 60)
             self.client.on_connect = self.on_connect
             self.client.on_message = self.on_message
 
             self.client.message_callback_add("rpi/android", self.on_message_android)
              
-            self.client.connect(self.hostname, 1883, 60)
+            
              
             # Process network traffic and dispatch callbacks. This will also handle
             # reconnecting. Check the documentation at
