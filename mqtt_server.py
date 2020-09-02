@@ -36,7 +36,7 @@ class MqttServer():
             print("Received message #2, do something else")
             # Do something else
 
-    def on_message_android(client, userdata, msg):
+    def on_message_android(self, client, userdata, msg):
         message = str(msg.payload.decode("utf-8"))
         print("oi")
         if message.split(",")[0] == "android":
