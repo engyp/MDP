@@ -15,7 +15,7 @@ def on_connect(client, userdata, flags, rc):
  
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
-    print(msg.topic+" "+str(msg.payload.decode("utf-8")))
+    print(msg.topic+": "+str(msg.payload.decode("utf-8")))
 
     if msg.payload == "test1":
         print("Received message #1, do something")
