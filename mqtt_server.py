@@ -57,7 +57,6 @@ class MqttServer():
             self.client.on_message = self.on_message
 
             self.client.message_callback_add("rpi/android", self.on_message_android)
-            self.client.message_callback_add("rpi/android", self.on_message_pc)
              
             
              
