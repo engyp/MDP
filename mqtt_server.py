@@ -3,6 +3,13 @@
 # check if the received data matches two predefined 'commands'
  
 import paho.mqtt.client as mqtt
+from bluetooth_server import BluetoothConnection
+from socket_server import SocketConnection
+from serial_server import SerialConnection
+
+btConnect = BluetoothConnection()
+pcConnect = SocketConnection()
+sConnect = SerialConnection()
  
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -26,6 +33,11 @@ def on_message(client, userdata, msg):
         print("Received message #2, do something else")
         # Do something else
 
+def on_message_android(client, userdata, msg):
+    message = str(msg.payload.decode("utf-8"))
+    if message.split(",")[0] == "android":
+        sConnect.send(message.split(",")[1])
+
 def run():
     try:
         # Create an MQTT client and attach our routines to it.
@@ -33,7 +45,7 @@ def run():
         client.on_connect = on_connect
         client.on_message = on_message
 
-        client.message_callback_add("rpi/android", on_message)
+        client.message_callback_add("rpi/android", on_message_android)
          
         client.connect("192.168.30.1", 1883, 60)
          
