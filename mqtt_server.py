@@ -38,6 +38,7 @@ class MqttServer():
 
     def on_message_android(client, userdata, msg):
         message = str(msg.payload.decode("utf-8"))
+        print("oi")
         if message.split(",")[0] == "android":
             print("hi")
             self.pcConnect.send(message.split(",")[1])
