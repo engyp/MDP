@@ -6,7 +6,7 @@ import paho.mqtt.client as mqtt
 
 class MqttServer(): 
 
-    def __init__(self, hostname="192.168.30.1") -> None:
+    def __init__(self, hostname="192.168.30.1"):
         self.hostname = hostname
         self.btConnect = None
         self.pcConnect = None
@@ -15,7 +15,7 @@ class MqttServer():
 
 
     # The callback for when the client receives a CONNACK response from the server.
-    def on_connect(client, userdata, flags, rc):
+    def on_connect(self, client, userdata, flags, rc):
         print("\nMqtt Server connected with result code "+str(rc))
      
         # Subscribing in on_connect() - if we lose the connection and
@@ -24,7 +24,7 @@ class MqttServer():
         self.client.subscribe("rpi/android")
      
     # The callback for when a PUBLISH message is received from the server.
-    def on_message(client, userdata, msg):
+    def on_message(self, client, userdata, msg):
         print(msg.topic+": "+str(msg.payload.decode("utf-8")))
 
         if msg.payload == "test1":
