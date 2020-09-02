@@ -2,6 +2,8 @@ from bluetooth_server import BluetoothConnection
 from socket_server import SocketConnection
 from serial_server import SerialConnection
 import sys, traceback, threading
+import paho.mqtt.publish as publish
+import mqtt_server
 
 
 def bluetooth_loop():
@@ -15,6 +17,7 @@ def bluetooth_loop():
 				if data is None: break
 				print("received [%s] from android" % data)
 				btConnect.send("reply back from rpi")
+				publish.single("rpi/android", data, hostname="192.168.30.1")
 			btConnect.disconnect()
 
 		except KeyboardInterrupt:
@@ -33,7 +36,8 @@ def pc_loop():
 			while True:
 				data = pcConnect.receive()
 				if data == 'quit': break
-				print("received [%s] from PC" % data) 
+				print("received [%s] from PC" % data)
+				publish.single("rpi/android", data, hostname="192.168.30.1")
 			pcConnect.disconnect()
 
 		except KeyboardInterrupt:
@@ -68,3 +72,5 @@ def arduino_loop():
 
 threading.Thread(target = bluetooth_loop, name = 'Bluetooth Thread').start()
 threading.Thread(target = pc_loop, name = 'PC Thread').start()
+
+mqtt_server.run()
