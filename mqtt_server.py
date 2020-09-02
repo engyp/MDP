@@ -26,7 +26,10 @@ class MqttServer():
     # The callback for when a PUBLISH message is received from the server.
     def on_message(client, userdata, msg):
         print(msg.topic+": "+str(msg.payload.decode("utf-8")))
-
+        print("oi")
+        if message.split(",")[0] == "android":
+            print("hi")
+            self.pcConnect.send(message.split(",")[1])
         if msg.payload == "test1":
             print("Received message #1, do something")
             # Do something
