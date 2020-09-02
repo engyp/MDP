@@ -13,7 +13,7 @@ def bluetooth_loop():
 			while True:
 				data = btConnect.receive()
 				if data is None: break
-				print("received [%s]" % data)
+				print("received [%s] from android" % data)
 				btConnect.send("reply back from rpi")
 			btConnect.disconnect()
 
@@ -33,7 +33,7 @@ def pc_loop():
 			while True:
 				data = pcConnect.receive()
 				if data == 'quit': break
-				print("received [%s]" % data) 
+				print("received [%s] from PC" % data) 
 			pcConnect.disconnect()
 
 		except KeyboardInterrupt:
