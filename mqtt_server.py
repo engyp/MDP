@@ -39,12 +39,14 @@ class MqttServer():
     def on_message_android(self, client, userdata, msg):
         message = str(msg.payload.decode("utf-8"))
         if message.split(",")[0] == "android":
+            self.btConnect.send(message.split(",")[1])
+        elif message.split(",")[0] == "pc":
             self.pcConnect.send(message.split(",")[1])
 
-    def on_message_pc(self, client, userdata, msg):
-        message = str(msg.payload.decode("utf-8"))
-        if message.split(",")[0] == "pc":
-            self.btConnect.send(message.split(",")[1])
+    # def on_message_pc(self, client, userdata, msg):
+    #     message = str(msg.payload.decode("utf-8"))
+    #     if message.split(",")[0] == "pc":
+    #         self.btConnect.send(message.split(",")[1])
 
     def run(self):
         try:
