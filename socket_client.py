@@ -11,9 +11,7 @@ while True:
 	command = input('Enter your command: ')
 	s.send(command.encode('utf-8'))
 	publish.single("rpi/android", command.encode('utf-8'), hostname="192.168.30.1")
-	
 	reply = s.recv(2048).decode("utf-8")
-	print(reply)
 	#if reply == 'terminate':
 	#	break
-	#print(reply)
+	print(reply)
