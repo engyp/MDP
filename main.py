@@ -6,71 +6,73 @@ import paho.mqtt.publish as publish
 import mqtt_server
 
 
-def bluetooth_loop():
+def bluetooth_loop(mqttServer):
 	#while True:
 		try:
-			btConnect = BluetoothConnection()
-			btConnect.disconnect()
-			btConnect.connect()
+			mqttServer.btConnect = BluetoothConnection()
+			mqttServer.btConnect.disconnect()
+			mqttServer.btConnect.connect()
 			while True:
-				data = btConnect.receive()
+				data = mqttServer.btConnect.receive()
 				if data is None: break
 				print("received [%s] from android" % data)
-				btConnect.send("\nreply back from rpi")
+				mqttServer.btConnect.send("\nreply back from rpi")
 				publish.single("rpi/android", data, hostname="192.168.30.1")
-			btConnect.disconnect()
+			mqttServer.btConnect.disconnect()
 
 		except KeyboardInterrupt:
-			btConnect.disconnect()
+			mqttServer.btConnect.disconnect()
 			
 		except Exception:
 			print("Main exec - Bluetooth connection error: ")
 			traceback.print_exc(limit=10, file=sys.stdout)
 
-def pc_loop():
+def pc_loop(mqttServer):
 	#while True:
 		try:
-			pcConnect = SocketConnection()
-			pcConnect.disconnect()
-			pcConnect.connect()
+			mqttServer.pcConnect = SocketConnection()
+			mqttServer.pcConnect.disconnect()
+			mqttServer.pcConnect.connect()
 			while True:
-				data = pcConnect.receive()
+				data = mqttServer.pcConnect.receive()
 				if data == 'quit': break
 				print("received [%s] from PC" % data)
 				publish.single("rpi/android", data, hostname="192.168.30.1")
-			pcConnect.disconnect()
+			mqttServer.pcConnect.disconnect()
 
 		except KeyboardInterrupt:
-			pcConnect.disconnect()
+			mqttServer.pcConnect.disconnect()
 
 		except Exception:
 			print("Main exec - Socket connection error: ")
 			traceback.print_exc(limit=10, file=sys.stdout)
 
-def arduino_loop():
+def arduino_loop(mqttServer):
 	#while True:
 		try:
-			sConnect = SerialConnection()
-			sConnect.disconnect()
-			sConnect.connect()
+			mqttServer.sConnect = SerialConnection()
+			mqttServer.sConnect.disconnect()
+			mqttServer.sConnect.connect()
 			while True:
 				if (serialCon.in_waiting > 0):
-					data = sConnect.receive()
+					data = mqttServer.sConnect.receive()
 					if data is None: break
 					print("received [%s]" % data) 
 					serialCon.write("This is message from rpi".encode('ascii'))
 				
-			sConnect.disconnect()
+			mqttServer.sConnect.disconnect()
 
 		except KeyboardInterrupt:
-			sConnect.disconnect()
+			mqttServer.sConnect.disconnect()
 
 		except Exception:
 			print("Main exec - Serial connection error: ")
 			traceback.print_exc(limit=10, file=sys.stdout)
 
 
-threading.Thread(target = bluetooth_loop, name = 'Bluetooth Thread').start()
-threading.Thread(target = pc_loop, name = 'PC Thread').start()
+mqttServer = mqtt_server.MqttServer()
 
-mqtt_server.run()
+threading.Thread(target=bluetooth_loop, args=((server,)), name = 'Bluetooth Thread', daemon=True).start()
+threading.Thread(target=pc_loop, args=((server,)), name = 'PC Thread', daemon=True).start()
+
+mqttServer.run()
