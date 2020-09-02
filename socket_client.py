@@ -1,4 +1,4 @@
-import socket
+import socket, threading
 import paho.mqtt.publish as publish
 
 HOST = '192.168.30.1' # Enter IP or Hostname of your server
@@ -11,7 +11,7 @@ def send():
 	while True:
 		command = input('Enter your text: ')
 		s.send(command.encode('utf-8'))
-		#publish.single("rpi/android", command.encode('utf-8'), hostname="192.168.30.1")
+		publish.single("rpi/android", command.encode('utf-8'), hostname="192.168.30.1")
 
 
 def receive():
@@ -23,7 +23,7 @@ def receive():
 		reply = s.recv(2048).decode("utf-8")
 		#if reply == 'terminate':
 		#	break
-		print(reply)
+		print("\n" + reply)
 
 
 

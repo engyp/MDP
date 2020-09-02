@@ -41,6 +41,11 @@ class MqttServer():
         if message.split(",")[0] == "android":
             self.pcConnect.send(message.split(",")[1])
 
+    def on_message_pc(self, client, userdata, msg):
+        message = str(msg.payload.decode("utf-8"))
+        if message.split(",")[0] == "pc":
+            self.btConnect.send(message.split(",")[1])
+
     def run(self):
         try:
             # Create an MQTT client and attach our routines to it.
@@ -50,6 +55,7 @@ class MqttServer():
             self.client.on_message = self.on_message
 
             self.client.message_callback_add("rpi/android", self.on_message_android)
+            self.client.message_callback_add("rpi/android", self.on_message_pc)
              
             
              
