@@ -10,8 +10,8 @@ def on_connect(client, userdata, flags, rc):
  
     # Subscribing in on_connect() - if we lose the connection and
     # reconnect then subscriptions will be renewed.
-    client.subscribe("arduino topic")
-    client.subscribe("android topic")
+    client.subscribe("rpi/arduino")
+    client.subscribe("rpi/android")
  
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
@@ -31,7 +31,7 @@ client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
  
-client.connect("test.mosquitto.org", 1883, 60)
+client.connect("192.168.30.1", 1883, 60)
  
 # Process network traffic and dispatch callbacks. This will also handle
 # reconnecting. Check the documentation at

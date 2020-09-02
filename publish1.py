@@ -3,5 +3,5 @@
 
 import paho.mqtt.publish as publish
 
-publish.single("arduino topic", "test1", hostname="test.mosquitto.org")
+publish.single("rpi/android", "android sent msg", hostname="192.168.30.1")
 print("Done")
