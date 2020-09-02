@@ -16,7 +16,7 @@ def bluetooth_loop():
 				data = btConnect.receive()
 				if data is None: break
 				print("received [%s] from android" % data)
-				btConnect.send("reply back from rpi")
+				btConnect.send("\nreply back from rpi")
 				publish.single("rpi/android", data, hostname="192.168.30.1")
 			btConnect.disconnect()
 
