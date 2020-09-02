@@ -32,6 +32,8 @@ def run():
         client = mqtt.Client()
         client.on_connect = on_connect
         client.on_message = on_message
+
+        client.message_callback_add("rpi/android", self.on_message)
          
         client.connect("192.168.30.1", 1883, 60)
          
