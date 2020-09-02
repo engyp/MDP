@@ -37,7 +37,7 @@ def pc_loop(mqttServer):
 				data = mqttServer.pcConnect.receive()
 				if data == 'quit': break
 				print("received [%s] from PC" % data)
-				publish.single("rpi/android", data, hostname="192.168.30.1")
+				publish.single("rpi/pc", data, hostname="192.168.30.1")
 			mqttServer.pcConnect.disconnect()
 
 		except KeyboardInterrupt:
@@ -59,6 +59,7 @@ def arduino_loop(mqttServer):
 					if data is None: break
 					print("received [%s]" % data) 
 					serialCon.write("This is message from rpi".encode('ascii'))
+					publish.single("rpi/arduino", data, hostname="192.168.30.1")
 				
 			mqttServer.sConnect.disconnect()
 
