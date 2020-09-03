@@ -24,20 +24,21 @@ class MqttServer():
     def on_message_arduino(self, client, userdata, msg):
         message = str(msg.payload.decode("utf-8"))
         if message.split(",")[0] == "arduino":
-            print("arduino" + message)
             self.sConnect.send(message.split(",")[1])
 
     def on_message_android(self, client, userdata, msg):
         message = str(msg.payload.decode("utf-8"))
         if message.split(",")[0] == "android":
-            print("android" + message)
             self.btConnect.send(message.split(",")[1])
+        elif message.split(",")[0] == "pc":
+            self.pcConnect.send(message.split(",")[1])
 
     def on_message_pc(self, client, userdata, msg):
         message = str(msg.payload.decode("utf-8"))
         if message.split(",")[0] == "pc":
-            print("pc"+ message)
             self.pcConnect.send(message.split(",")[1])
+        elif message.split(",")[0] == "android":
+            self.btConnect.send(message.split(",")[1])
 
     def run(self):
         try:
