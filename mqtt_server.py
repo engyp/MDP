@@ -6,6 +6,7 @@ import paho.mqtt.client as mqtt
 
 class MqttServer(): 
 
+    channels = ["rpi/arduino", "rpi/android", "rpi/pc"]
     def __init__(self, hostname="192.168.30.1"):
         self.hostname = hostname
         self.btConnect = None
@@ -17,25 +18,9 @@ class MqttServer():
     # The callback for when the client receives a CONNACK response from the server.
     def on_connect(self, client, userdata, flags, rc):
         print("\nMqtt Server connected with result code "+str(rc))
-     
-        # Subscribing in on_connect() - if we lose the connection and
-        # reconnect then subscriptions will be renewed.
-        self.client.subscribe("rpi/arduino")
-        self.client.subscribe("rpi/android")
-        self.client.subscribe("rpi/pc")
-     
-    # The callback for when a PUBLISH message is received from the server.
+        
     def on_message(self, client, userdata, msg):
         print(msg.topic+": "+str(msg.payload.decode("utf-8")))
-
-        if msg.payload == "test1":
-            print("Received message #1, do something")
-            # Do something
-
-
-        if msg.payload == "test2":
-            print("Received message #2, do something else")
-            # Do something else
 
     def on_message_arduino(self, client, userdata, msg):
         message = str(msg.payload.decode("utf-8"))
@@ -57,6 +42,7 @@ class MqttServer():
             # Create an MQTT client and attach our routines to it.
             self.client = mqtt.Client()
             self.client.connect(self.hostname, 1883, 60)
+            self.client.subscribe([(channel, 2) for channel in self.channels])
             self.client.on_connect = self.on_connect
             self.client.on_message = self.on_message
 
