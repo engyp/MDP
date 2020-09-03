@@ -18,29 +18,25 @@ class MqttServer():
     def on_connect(self, client, userdata, flags, rc):
         print("\nMqtt Server connected with result code "+str(rc))
      
-        # Subscribing in on_connect() - if we lose the connection and
-        # reconnect then subscriptions will be renewed.
-        self.client.subscribe("rpi/arduino")
-        self.client.subscribe("rpi/android")
-        self.client.subscribe("rpi/pc")
-     
-    # The callback for when a PUBLISH message is received from the server.
     def on_message(self, client, userdata, msg):
         print(msg.topic+": "+str(msg.payload.decode("utf-8")))
 
     def on_message_arduino(self, client, userdata, msg):
         message = str(msg.payload.decode("utf-8"))
         if message.split(",")[0] == "arduino":
+            print("arduino")
             self.sConnect.send(message.split(",")[1])
 
     def on_message_android(self, client, userdata, msg):
         message = str(msg.payload.decode("utf-8"))
         if message.split(",")[0] == "android":
+            print("android")
             self.btConnect.send(message.split(",")[1])
 
     def on_message_pc(self, client, userdata, msg):
         message = str(msg.payload.decode("utf-8"))
         if message.split(",")[0] == "pc":
+            print("pc")
             self.pcConnect.send(message.split(",")[1])
 
     def run(self):
@@ -50,7 +46,9 @@ class MqttServer():
             self.client.connect(self.hostname, 1883, 60)
             self.client.on_connect = self.on_connect
             self.client.on_message = self.on_message
-
+            self.client.subscribe("rpi/arduino")
+            self.client.subscribe("rpi/android")
+            self.client.subscribe("rpi/pc")
             self.client.message_callback_add("rpi/arduino", self.on_message_arduino)
             self.client.message_callback_add("rpi/android", self.on_message_android)
             self.client.message_callback_add("rpi/pc", self.on_message_pc)
