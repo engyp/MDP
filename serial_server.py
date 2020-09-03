@@ -9,7 +9,7 @@ class SerialConnection():
 
 	def connect(self): 
 		try:
-			serialCon = serial.Serial(self.port, self.baud_rate)
+			self.serialCon = serial.Serial(self.port, self.baud_rate)
 			print("\nSerial connected at port:  %d" % self.port)
 
 		except Exception:
