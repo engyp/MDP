@@ -39,6 +39,14 @@ class MqttServer():
             print("pc")
             self.pcConnect.send(message.split(",")[1])
 
+        elif message.split(",")[0] == "android":
+            print("android")
+            self.btConnect.send(message.split(",")[1])
+
+        elif message.split(",")[0] == "arduino":
+            print("arduino")
+            self.sConnect.send(message.split(",")[1])
+
     def run(self):
         try:
             # Create an MQTT client and attach our routines to it.
@@ -49,8 +57,8 @@ class MqttServer():
             self.client.subscribe("rpi/arduino")
             self.client.subscribe("rpi/android")
             self.client.subscribe("rpi/pc")
-            self.client.message_callback_add("rpi/arduino", self.on_message_arduino)
-            self.client.message_callback_add("rpi/android", self.on_message_android)
+            self.client.message_callback_add("rpi/arduino", self.on_message_pc)
+            self.client.message_callback_add("rpi/android", self.on_message_pc)
             self.client.message_callback_add("rpi/pc", self.on_message_pc)
              
             
