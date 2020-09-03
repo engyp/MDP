@@ -56,8 +56,7 @@ def arduino_loop(mqttServer):
 			while True:
 				data = mqttServer.sConnect.receive()
 				if data is None: break
-				print("received [%s]" % data) 
-				serialCon.write("This is message from rpi".encode('ascii'))
+				print("received [%s] from arduino" % data) 
 				publish.single("rpi/arduino", data, hostname="192.168.30.1")
 			mqttServer.sConnect.disconnect()
 

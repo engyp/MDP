@@ -5,7 +5,7 @@ void setup() {
 }
 
 void loop() {
-	Serial.println("This is message from arduino");
+	Serial.println("android,This is message from arduino");
 	delay(2000);
 }
 
