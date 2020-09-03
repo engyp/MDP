@@ -22,6 +22,7 @@ class MqttServer():
         # reconnect then subscriptions will be renewed.
         self.client.subscribe("rpi/arduino")
         self.client.subscribe("rpi/android")
+        self.client.subscribe("rpi/pc")
      
     # The callback for when a PUBLISH message is received from the server.
     def on_message(self, client, userdata, msg):
@@ -36,17 +37,20 @@ class MqttServer():
             print("Received message #2, do something else")
             # Do something else
 
+    def on_message_arduino(self, client, userdata, msg):
+        message = str(msg.payload.decode("utf-8"))
+        if message.split(",")[0] == "arduino":
+            self.sConnect.send(message.split(",")[1])
+
     def on_message_android(self, client, userdata, msg):
         message = str(msg.payload.decode("utf-8"))
         if message.split(",")[0] == "android":
             self.btConnect.send(message.split(",")[1])
-        elif message.split(",")[0] == "pc":
-            self.pcConnect.send(message.split(",")[1])
 
-    # def on_message_pc(self, client, userdata, msg):
-    #     message = str(msg.payload.decode("utf-8"))
-    #     if message.split(",")[0] == "pc":
-    #         self.btConnect.send(message.split(",")[1])
+    def on_message_pc(self, client, userdata, msg):
+        message = str(msg.payload.decode("utf-8"))
+        if message.split(",")[0] == "pc":
+            self.pcConnect.send(message.split(",")[1])
 
     def run(self):
         try:
@@ -56,7 +60,9 @@ class MqttServer():
             self.client.on_connect = self.on_connect
             self.client.on_message = self.on_message
 
+            self.client.message_callback_add("rpi/arduino", self.on_message_arduino)
             self.client.message_callback_add("rpi/android", self.on_message_android)
+            self.client.message_callback_add("rpi/pc", self.on_message_pc)
              
             
              
