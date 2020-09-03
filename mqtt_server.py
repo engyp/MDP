@@ -52,9 +52,8 @@ class MqttServer():
             self.client.on_message = self.on_message
 
             self.client.message_callback_add("rpi/arduino", self.on_message_arduino)
-            self.client.message_callback_add("rpi/pc", self.on_message_pc)
             self.client.message_callback_add("rpi/android", self.on_message_android)
-            
+            self.client.message_callback_add("rpi/pc", self.on_message_pc)
              
             
              
