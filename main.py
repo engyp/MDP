@@ -17,7 +17,7 @@ def bluetooth_loop(mqttServer):
 				if data is None: break
 				print("received [%s] from android" % data)
 				#mqttServer.btConnect.send("\nreply back from rpi")
-				publish.single("rpi/android", data, hostname="192.168.30.1")
+				publish.single("android", data, hostname="192.168.30.1")
 			mqttServer.btConnect.disconnect()
 
 		except KeyboardInterrupt:
@@ -37,7 +37,7 @@ def pc_loop(mqttServer):
 				data = mqttServer.pcConnect.receive()
 				if data == 'quit': break
 				print("received [%s] from PC" % data)
-				publish.single("rpi/pc", data, hostname="192.168.30.1")
+				publish.single("pc", data, hostname="192.168.30.1")
 			mqttServer.pcConnect.disconnect()
 
 		except KeyboardInterrupt:
@@ -57,7 +57,7 @@ def arduino_loop(mqttServer):
 				data = mqttServer.sConnect.receive()
 				if data is None: break
 				print("received [%s] from arduino" % data) 
-				publish.single("rpi/arduino", data, hostname="192.168.30.1")
+				publish.single("arduino", data, hostname="192.168.30.1")
 			mqttServer.sConnect.disconnect()
 
 		except KeyboardInterrupt:
