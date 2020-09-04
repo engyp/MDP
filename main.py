@@ -90,6 +90,8 @@ mqttThread.start()
 
 while True:
 	btThread.join(1)
+	pcThread.join(1)
+	mqttThread.join(1)
 	if not btThread.isAlive():
 		break
 	if not pcThread.isAlive():
