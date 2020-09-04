@@ -57,7 +57,7 @@ def arduino_loop(mqttServer):
 				data = mqttServer.sConnect.receive()
 				if data is None: break
 				print("received [%s] from arduino" % data) 
-				publish.single("arduino", "arduino," + data, hostname="192.168.30.1")
+				publish.single("arduino", data, hostname="192.168.30.1")
 			mqttServer.sConnect.disconnect()
 
 		except KeyboardInterrupt:
@@ -72,8 +72,8 @@ try:
 
 	#threading.Thread(target=bluetooth_loop, args=((mqttServer,)), name = 'Bluetooth Thread').start()
 	#threading.Thread(target=pc_loop, args=((mqttServer,)), name = 'PC Thread').start()
-	threading.Thread(target=arduino_loop, args=((mqttServer,)), name = 'Arduino Thread').start()
-
+	#threading.Thread(target=arduino_loop, args=((mqttServer,)), name = 'Arduino Thread').start()
+	pc_loop(mqttServer)
 	try:
 		mqttServer.run()
 	except KeyboardInterrupt:
