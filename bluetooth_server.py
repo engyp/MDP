@@ -2,7 +2,7 @@ from bluetooth import *
 import sys, traceback
 
 class BluetoothConnection():
-	def __init__(self, port=8, uuid="94f39d29-7d6d-437d-973b-fba39e49d4ee"):
+	def __init__(self, port=8, uuid="00001101-0000-1000-8000-00805F9B34FB"):
 	    self.port = port
 	    self.btcon = None
 	    self.server_sock = None
@@ -30,7 +30,7 @@ class BluetoothConnection():
 
 	def disconnect(self):
 	    try:
-	        if self.btcon: 
+	        if self.btcon is not None: 
 	        	self.btcon.close()
 	        	self.btcon = None
 	        	print("\nBluetooth disconnected")

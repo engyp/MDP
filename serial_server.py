@@ -2,7 +2,7 @@ import serial
 import sys, traceback
 
 class SerialConnection():
-	def __init__(self, baud_rate = 115200, port = '/dev/ttyACM0'):
+	def __init__(self, baud_rate = 115200, port = '/dev/serial/by-id/usb-Arduino__www.arduino.cc__0043_75833353035351603131-if00'):
 		self.port = port
 		self.serialCon = None
 		self.baud_rate = baud_rate
@@ -10,7 +10,7 @@ class SerialConnection():
 	def connect(self): 
 		try:
 			self.serialCon = serial.Serial(self.port, self.baud_rate)
-			print("\nSerial connected at port:  %d" % self.port)
+			print("\nSerial connected at port:  %s" % self.port)
 
 		except Exception:
 			print("Serial connection error: ")
@@ -18,7 +18,7 @@ class SerialConnection():
 
 	def disconnect(self):
 		try:
-			if self.serialCon:
+			if self.serialCon is not None:
 				self.serialCon.close()
 				print("\n Serial disconnected")
 

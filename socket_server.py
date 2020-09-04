@@ -25,12 +25,12 @@ class SocketConnection():
 
 	def disconnect(self):
 		try:
-			if self.conn:
+			if self.conn is not None:
 				self.conn.close()
 				self.conn = None
 				print("\nSocket disconnected") 
 
-			if self.socket:
+			if self.socket is not None:
 				self.socket.close()
 				self.socket = None
 
