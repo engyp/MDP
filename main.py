@@ -72,26 +72,27 @@ def arduino_loop(mqttServer, self):
 			traceback.print_exc(limit=10, file=sys.stdout)
 
 try:
-	mqttServer = mqtt_server.MqttServer()
+	ser = __init__()
+	ser.mqttServer = mqtt_server.MqttServer()
 
 	#threading.Thread(target=bluetooth_loop, args=((mqttServer,)), name = 'Bluetooth Thread').start()
-	threading.Thread(target=pc_loop, args=((mqttServer,)), name = 'PC Thread').start()
+	threading.Thread(target=pc_loop, args=((ser.mqttServer,self)), name = 'PC Thread').start()
 	#threading.Thread(target=arduino_loop, args=((mqttServer,)), name = 'Arduino Thread').start()
 
 	try:
-		mqttServer.run()
+		ser.mqttServer.run()
 	except KeyboardInterrupt:
-		print("1111111111111111111111111111")
-		mqttServer.btConnect.disconnect()
-		mqttServer.pcConnect.disconnect()
-		mqttServer.sConnect.disconnect()
-		mqttServer.client.loop_stop()
-		mqttServer.client.disconnect()
+		ser.print("1111111111111111111111111111")
+		ser.mqttServer.btConnect.disconnect()
+		ser.mqttServer.pcConnect.disconnect()
+		ser.mqttServer.sConnect.disconnect()
+		ser.mqttServer.client.loop_stop()
+		ser.mqttServer.client.disconnect()
 
 except KeyboardInterrupt:
 	print("22222222222222222222222222")
-	mqttServer.btConnect.disconnect()
-	mqttServer.pcConnect.disconnect()
-	mqttServer.sConnect.disconnect()
-	mqttServer.client.loop_stop()
-	mqttServer.client.disconnect()
+	ser.mqttServer.btConnect.disconnect()
+	ser.mqttServer.pcConnect.disconnect()
+	ser.mqttServer.sConnect.disconnect()
+	ser.mqttServer.client.loop_stop()
+	ser.mqttServer.client.disconnect()
