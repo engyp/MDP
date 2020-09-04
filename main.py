@@ -74,8 +74,20 @@ try:
 	threading.Thread(target=pc_loop, args=((mqttServer,)), name = 'PC Thread').start()
 	threading.Thread(target=arduino_loop, args=((mqttServer,)), name = 'Arduino Thread').start()
 
-	mqttServer.run()
+	try:
+		mqttServer.run()
+	except KeyboardInterrupt:
+		print("1111111111111111111111111111")
+		mqttServer.btConnect.disconnect()
+		mqttServer.pcConnect.disconnect()
+		mqttServer.sConnect.disconnect()
+		mqttServer.client.loop_stop()
+		mqttServer.client.disconnect()
 
 except KeyboardInterrupt:
+	print("22222222222222222222222222")
+	mqttServer.btConnect.disconnect()
+	mqttServer.pcConnect.disconnect()
+	mqttServer.sConnect.disconnect()
 	mqttServer.client.loop_stop()
 	mqttServer.client.disconnect()
