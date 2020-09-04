@@ -26,7 +26,6 @@ def bluetooth_loop(mqttServer):
 		except Exception:
 			print("Main exec - Bluetooth connection error: ")
 			traceback.print_exc(limit=10, file=sys.stdout)
-			time.sleep(0.5)
 
 def pc_loop(mqttServer):
 	#while True:
@@ -47,7 +46,6 @@ def pc_loop(mqttServer):
 		except Exception:
 			print("Main exec - Socket connection error: ")
 			traceback.print_exc(limit=10, file=sys.stdout)
-			time.sleep(0.5)
 
 def arduino_loop(mqttServer):
 	#while True:
@@ -68,7 +66,6 @@ def arduino_loop(mqttServer):
 		except Exception:
 			print("Main exec - Serial connection error: ")
 			traceback.print_exc(limit=10, file=sys.stdout)
-			time.sleep(0.5)
 
 
 mqttServer = mqtt_server.MqttServer()
@@ -90,8 +87,18 @@ mqttThread = threading.Thread(target=mqttServer.run())
 mqttThread.setDaemon(True)
 mqttThread.start()
 
-btThread.join()
-pcThread.join()
-mqttThread.join()
 
+while True:
+	btThread.join(600)
+	if not btThread.isAlive():
+		break
 
+while True:
+	pcThread.join(600)
+	if not pcThread.isAlive():
+		break
+
+while True:
+	mqttThread.join(600)
+	if not mqttThread.isAlive():
+		break
