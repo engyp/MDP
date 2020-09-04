@@ -67,11 +67,16 @@ def arduino_loop(mqttServer):
 			print("Main exec - Serial connection error: ")
 			traceback.print_exc(limit=10, file=sys.stdout)
 
+try:
+	mqttServer = mqtt_server.MqttServer()
 
-mqttServer = mqtt_server.MqttServer()
+	threading.Thread(target=bluetooth_loop, args=((mqttServer,)), name = 'Bluetooth Thread').start()
+	threading.Thread(target=pc_loop, args=((mqttServer,)), name = 'PC Thread').start()
+	threading.Thread(target=arduino_loop, args=((mqttServer,)), name = 'Arduino Thread').start()
 
-threading.Thread(target=bluetooth_loop, args=((mqttServer,)), name = 'Bluetooth Thread').start()
-threading.Thread(target=pc_loop, args=((mqttServer,)), name = 'PC Thread').start()
-threading.Thread(target=arduino_loop, args=((mqttServer,)), name = 'Arduino Thread').start()
+	mqttServer.run()
 
-mqttServer.run()
+except KeyboardInterrupt:
+	mqttServer.btConnect.disconnect()
+	mqttServer.pcConnect.disconnect()
+	mqttServer.sConnect.disconnect()
