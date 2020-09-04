@@ -5,12 +5,6 @@ import sys, traceback, threading
 import paho.mqtt.publish as publish
 import mqtt_server
 
-def connect(mqttServer):
-	mqttServer.pcConnect = SocketConnection()
-	mqttServer.pcConnect.connect()
-
-def disconnect(mqttServer):
-	mqttServer.pcConnect.disconnect()
 
 def bluetooth_loop(mqttServer):
 	#while True:
@@ -36,10 +30,9 @@ def bluetooth_loop(mqttServer):
 def pc_loop(mqttServer):
 	#while True:
 		try:
-			#mqttServer.pcConnect = SocketConnection()
-			#mqttServer.pcConnect.disconnect()
-			#mqttServer.pcConnect.connect()
-			connect(mqttServer)
+			mqttServer.pcConnect = SocketConnection()
+			mqttServer.pcConnect.disconnect()
+			mqttServer.pcConnect.connect()
 			while True:
 				data = mqttServer.pcConnect.receive()
 				if data == 'quit': break
@@ -48,7 +41,6 @@ def pc_loop(mqttServer):
 			mqttServer.pcConnect.disconnect()
 
 		except KeyboardInterrupt:
-			print("555555555555555555555555")
 			mqttServer.pcConnect.disconnect()
 
 		except Exception:
@@ -65,7 +57,7 @@ def arduino_loop(mqttServer):
 				data = mqttServer.sConnect.receive()
 				if data is None: break
 				print("received [%s] from arduino" % data) 
-				publish.single("arduino", data, hostname="192.168.30.1")
+				publish.single("arduino", "arduino," + data, hostname="192.168.30.1")
 			mqttServer.sConnect.disconnect()
 
 		except KeyboardInterrupt:
@@ -79,8 +71,8 @@ try:
 	mqttServer = mqtt_server.MqttServer()
 
 	#threading.Thread(target=bluetooth_loop, args=((mqttServer,)), name = 'Bluetooth Thread').start()
-	threading.Thread(target=pc_loop, args=((mqttServer,)), name = 'PC Thread').start()
-	#threading.Thread(target=arduino_loop, args=((mqttServer,)), name = 'Arduino Thread').start()
+	#threading.Thread(target=pc_loop, args=((mqttServer,)), name = 'PC Thread').start()
+	threading.Thread(target=arduino_loop, args=((mqttServer,)), name = 'Arduino Thread').start()
 
 	try:
 		mqttServer.run()
@@ -93,7 +85,7 @@ try:
 		mqttServer.client.disconnect()
 
 except KeyboardInterrupt:
-	print("22222222222222222222222222")
+	print("1111111111111111111111111111")
 	mqttServer.btConnect.disconnect()
 	mqttServer.pcConnect.disconnect()
 	mqttServer.sConnect.disconnect()
