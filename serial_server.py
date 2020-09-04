@@ -28,6 +28,7 @@ class SerialConnection():
 
 	def send(self, msg):
 		try:
+			self.serialCon.flush()
 			self.serialCon.write(msg.encode('ascii'))
 
 		except Exception as e:
@@ -36,6 +37,7 @@ class SerialConnection():
 
 	def receive(self):
 		try:
+			self.serialCon.flush()
 			msg = self.serialCon.readline().decode('utf-8', errors='replace')
 			return msg
 
