@@ -71,9 +71,9 @@ try:
 	mqttServer = mqtt_server.MqttServer()
 
 	#threading.Thread(target=bluetooth_loop, args=((mqttServer,)), name = 'Bluetooth Thread').start()
-	#threading.Thread(target=pc_loop, args=((mqttServer,)), name = 'PC Thread').start()
+	threading.Thread(target=pc_loop, args=((mqttServer,)), name = 'PC Thread').start().join()
 	#threading.Thread(target=arduino_loop, args=((mqttServer,)), name = 'Arduino Thread').start()
-	pc_loop(mqttServer)
+
 	try:
 		mqttServer.run()
 	except KeyboardInterrupt:
