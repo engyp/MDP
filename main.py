@@ -4,7 +4,6 @@ from serial_server import SerialConnection
 import sys, traceback, threading
 import paho.mqtt.publish as publish
 import mqtt_server
-import concurrent.futures
 
 
 def bluetooth_loop(mqttServer):
@@ -76,20 +75,18 @@ mqttServer = mqtt_server.MqttServer()
 #sThread.start()
 #sThread.join()
 
-# btThread = threading.Thread(target=bluetooth_loop, args=((mqttServer,)), name = 'Bluetooth Thread')
-# btThread.setDaemon(True)
-# btThread.start()
+btThread = threading.Thread(target=bluetooth_loop, args=((mqttServer,)), name = 'Bluetooth Thread')
+btThread.setDaemon(True)
+btThread.start()
 
-# pcThread = threading.Thread(target=pc_loop, args=((mqttServer,)), name = 'PC Thread')
-# pcThread.setDaemon(True)
-# pcThread.start()
+pcThread = threading.Thread(target=pc_loop, args=((mqttServer,)), name = 'PC Thread')
+pcThread.setDaemon(True)
+pcThread.start()
 
 
-# btThread.join()
-# pcThread.join()
+btThread.join()
+pcThread.join()
 
-with concurrent.futures.ThreadPoolExecutor() as executor:
-	executor.submit(bluetooth_loop, mqttServer)
-	executor.submit(pc_loop, mqttServer)
+
 
 mqttServer.run()
