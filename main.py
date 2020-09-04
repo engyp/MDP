@@ -89,16 +89,10 @@ mqttThread.start()
 
 
 while True:
-	btThread.join(600)
+	btThread.join(1)
 	if not btThread.isAlive():
 		break
-
-while True:
-	pcThread.join(600)
 	if not pcThread.isAlive():
 		break
-
-while True:
-	mqttThread.join(600)
 	if not mqttThread.isAlive():
 		break
