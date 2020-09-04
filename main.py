@@ -75,16 +75,22 @@ btThread = threading.Thread(target=bluetooth_loop, args=((mqttServer,)), name = 
 pcThread = threading.Thread(target=pc_loop, args=((mqttServer,)), name = 'PC Thread')
 
 btThread.setDaemon(True)
+pcThread.setDaemon(True)
+
 btThread.start()
+pcThread.start()
+
+
 btThread.join()
+pcThread.join()
 
 #sThread.setDaemon(True)
 #sThread.start()
 #sThread.join()
 
-pcThread.setDaemon(True)
-pcThread.start()
-pcThread.join()
+
+
+
 
 
 mqttServer.run()
