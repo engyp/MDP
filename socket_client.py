@@ -11,7 +11,7 @@ def send():
 	while True:
 		command = input('Enter your text: ')
 		s.send(command.encode('utf-8'))
-		#publish.single("android", command.encode('utf-8'), hostname="192.168.30.1")
+		publish.single("pc", command.encode('utf-8'), hostname="192.168.30.1")
 
 
 def receive():
