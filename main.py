@@ -83,8 +83,7 @@ pcThread = threading.Thread(target=pc_loop, args=((mqttServer,)), name = 'PC Thr
 pcThread.setDaemon(True)
 pcThread.start()
 
-mqttThread = threading.Thread(target=mqttServer)
-mqttServer.run()
+mqttThread = threading.Thread(target=mqttServer.run())
 mqttThread.setDaemon(True)
 mqttThread.start()
 
