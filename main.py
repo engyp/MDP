@@ -77,6 +77,5 @@ try:
 	mqttServer.run()
 
 except KeyboardInterrupt:
-	mqttServer.btConnect.disconnect()
-	mqttServer.pcConnect.disconnect()
-	mqttServer.sConnect.disconnect()
+	mqttServer.client.loop_stop()
+	mqttServer.client.disconnect()
