@@ -71,16 +71,16 @@ def arduino_loop(mqttServer):
 mqttServer = mqtt_server.MqttServer()
 
 btThread = threading.Thread(target=bluetooth_loop, args=((mqttServer,)), name = 'Bluetooth Thread')
-sThread = threading.Thread(target=arduino_loop, args=((mqttServer,)), name = 'Arduino Thread')
+#sThread = threading.Thread(target=arduino_loop, args=((mqttServer,)), name = 'Arduino Thread')
 pcThread = threading.Thread(target=pc_loop, args=((mqttServer,)), name = 'PC Thread')
 
 btThread.setDaemon(True)
 btThread.start()
 btThread.join()
 
-sThread.setDaemon(True)
-sThread.start()
-sThread.join()
+#sThread.setDaemon(True)
+#sThread.start()
+#sThread.join()
 
 pcThread.setDaemon(True)
 pcThread.start()
