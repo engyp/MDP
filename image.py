@@ -6,7 +6,7 @@ import numpy as numpy
 img1 = cv2.imread('ImagesQuery/up.JPG',0)
 img2 = cv2.imread('ImagesTrain/upTrain.JPG',0)
 
-orb = cv2.ORB_create()
+orb = cv2.ORB_create(nfeatures=1000)
 
 kp1, des1 = orb.detectAndCompute(img1,None)
 kp2, des2 = orb.detectAndCompute(img2,None)
@@ -29,8 +29,8 @@ good = []
 for m,n in matches:
 	if m.distance < 0.75*n.distance:
 		good.append([m])
-
-im3 = cv2.drawMatchesKnn(img1,kp1,img2,kp2,good,None,flags=2)
+print(len(good))
+img3 = cv2.drawMatchesKnn(img1,kp1,img2,kp2,good,None,flags=2)
 
 # cv2.imshow('Kp1',imgKp1)
 # cv2.imshow('Kp2',imgKp2)
