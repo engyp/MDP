@@ -24,22 +24,27 @@ def findDes(images):
 		desList.append(des)
 	return desList
 
-def findID(img, desList, threshold=5):
+def findID(img, desList, threshold=10):
 	kp2,des2 = orb.detectAndCompute(img,None)
-	bf = cv2.BFMatcher()
+	# FLANN parameters
+	FLANN_INDEX_KDTREE = 1
+	index_params = dict(algorithm = FLANN_INDEX_KDTREE, trees = 5)
+	search_params = dict(checks=50)   # or pass empty dictionary
+	
+	flann = cv.FlannBasedMatcher(index_params,search_params)
 	matchList = []
 	finalVal = -1
 	try:
 		for des in desList:
-			matches = bf.knnMatch(des,des2,k=2)
+			matches = flann.knnMatch(des1,des2,k=2)
 			good = []
 			for m,n in matches:
-				if m.distance < 0.75*n.distance:
+				if m.distance < 0.7*n.distance:
 					good.append([m])
 			matchList.append(len(good))
 	except:
 		pass
-	# print(matchList)
+	print(matchList)
 	if len(matchList) != 0:
 		if max(matchList) > threshold:
 			finalVal = matchList.index(max(matchList))
@@ -60,7 +65,7 @@ while True:
 
 	id = findID(img2,desList)
 	if id != -1:
-		cv2.putText(imgOriginal,classNames[id],(50,50),cv2.FONT_HERSHEY_COMLPEX,1,(0,0,255),2)
+		cv2.putText(imgOriginal,classNames[id],(50,50),cv2.FONT_HERSHEY_COMPLEX,1,(0,0,255),2)
 
 	cv2.imshow('img2',imgOriginal)
 	cv2.waitKey(1)
