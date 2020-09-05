@@ -16,11 +16,11 @@ kp2, des2 = orb.detectAndCompute(img2,None)
 
 imgKp1 = img1.copy()
 for marker in kp1:
-	imgKp1 = cv.drawMarker(imgKp1, tuple(int(i) for i in marker.pt))
+	imgKp1 = cv2.drawMarker(imgKp1, tuple(int(i) for i in marker.pt), color=(0, 255, 0))
 
 imgKp2 = img2.copy()
 for marker in kp2:
-	imgKp2 = cv.drawMarker(imgKp2, tuple(int(i) for i in marker.pt))
+	imgKp2 = cv2.drawMarker(imgKp2, tuple(int(i) for i in marker.pt), color=(0, 255, 0))
 
 
 
