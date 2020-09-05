@@ -24,19 +24,27 @@ def findDes(images):
 		desList.append(des)
 	return desList
 
-def findID(img, desList):
+def findID(img, desList, threshold=5):
 	kp2,des2 = orb.detectAndCompute(img,None)
 	bf = cv2.BFMatcher()
 	matchList = []
 	finalVal = -1
-	for des in desList:
-		matches = bf.knnMatch(des,des2,k=2)
-		good = []
-		for m,n in matches:
-			if m.distance < 0.75*n.distance:
-				good.append([m])
-		matchList.append(len(good))
-	print(matchList)
+	try:
+		for des in desList:
+			matches = bf.knnMatch(des,des2,k=2)
+			good = []
+			for m,n in matches:
+				if m.distance < 0.75*n.distance:
+					good.append([m])
+			matchList.append(len(good))
+	except:
+		pass
+	# print(matchList)
+	if len(matchList) != 0:
+		if max(matchList) > threshold:
+			finalVal = matchList.index(max(matchList))
+	return finalVal
+
 
 desList = findDes(images)
 print(len(desList))
@@ -50,7 +58,9 @@ while True:
 	imgOriginal = img2.copy()
 	img2 = cv2.cvtColor(img2,cv2.COLOR_BGR2GRAY)
 
-	findID(img2,desList)
+	id = findID(img2,desList)
+	if id != -1:
+		cv2.putText(imgOriginal,classNames[id],(50,50),cv2.FONT_HERSHEY_COMLPEX,1,(0,0,255),2)
 
 	cv2.imshow('img2',imgOriginal)
 	cv2.waitKey(1)
