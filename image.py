@@ -1,5 +1,6 @@
-import sys, cv2, os
+import sys, os
 sys.path.append("..")
+import cv2
 import numpy as numpy
 
 path = ('ImagesQuery')
@@ -23,6 +24,20 @@ def findDes(images):
 		desList.append(des)
 	return desList
 
+def findID(img, desList):
+	kp2,des2 = orb.detectAndCompute(img,None)
+	bf = cv2.BFMatcher()
+	matchList = []
+	finalVal = -1
+	for des in desList:
+		matches = bf.knnMatch(des,des2,k=2)
+		good = []
+		for m,n in matches:
+			if m.distance < 0.75*n.distance:
+				good.append([m])
+		matchList.append(len(good))
+	print(matchList)
+
 desList = findDes(images)
 print(len(desList))
 
@@ -34,6 +49,8 @@ while True:
 	success,img2 = cap.read()
 	imgOriginal = img2.copy()
 	img2 = cv2.cvtColor(img2,cv2.COLOR_BGR2GRAY)
+
+	findID(img2,desList)
 
 	cv2.imshow('img2',imgOriginal)
 	cv2.waitKey(1)
