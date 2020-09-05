@@ -36,7 +36,7 @@ def findID(img, desList, threshold=10):
 	finalVal = -1
 	try:
 		for des in desList:
-			matches = flann.knnMatch(des1,des2,k=2)
+			matches = flann.knnMatch(des,des2,k=2)
 			good = []
 			for m,n in matches:
 				if m.distance < 0.7*n.distance:
