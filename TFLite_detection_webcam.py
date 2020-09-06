@@ -156,6 +156,35 @@ input_std = 127.5
 frame_rate_calc = 1
 freq = cv2.getTickFrequency()
 
+
+frames_per_second = 24.0
+res = '720p'
+
+# Set resolution for the video capture
+# Function adapted from https://kirr.co/0l6qmh
+def change_res(cap, width, height):
+    cap.set(3, width)
+    cap.set(4, height)
+
+# Standard Video Dimensions Sizes
+STD_DIMENSIONS =  {
+    "480p": (640, 480),
+    "720p": (1280, 720),
+    "1080p": (1920, 1080),
+    "4k": (3840, 2160),
+}
+
+
+# grab resolution dimensions and set video capture to it.
+def get_dims(cap, res='1080p'):
+    width, height = STD_DIMENSIONS["480p"]
+    if res in STD_DIMENSIONS:
+        width,height = STD_DIMENSIONS[res]
+    ## change the current caputre device
+    ## to the resulting resolution
+    change_res(cap, width, height)
+    return width, height
+
 VIDEO_TYPE = {
     'avi': cv2.VideoWriter_fourcc(*'XVID'),
     'mp4': cv2.VideoWriter_fourcc(*'H264'),
@@ -170,7 +199,7 @@ def get_video_type(filename):
 
 # Initialize video stream
 videostream = VideoStream(resolution=(imW,imH),framerate=30).start()
-out = cv2.VideoWriter('hi.h264', get_video_type(hi.h264), 25, get_dims(self.stream, '720p'))
+out = cv2.VideoWriter('hi.h264', get_video_type('hi.h264'), 25, get_dims(self.stream, '720p'))
 time.sleep(1)
 
 #for frame1 in camera.capture_continuous(rawCapture, format="bgr",use_video_port=True):
