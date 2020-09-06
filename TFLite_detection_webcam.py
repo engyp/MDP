@@ -41,6 +41,18 @@ class VideoStream:
 	# Variable to control when the camera is stopped
         self.stopped = False
 
+    VIDEO_TYPE = {
+        'avi': cv2.VideoWriter_fourcc(*'XVID'),
+        'mp4': cv2.VideoWriter_fourcc(*'H264'),
+        'mp4': cv2.VideoWriter_fourcc(*'XVID'),
+    }
+
+    def get_video_type(filename):
+        filename, ext = os.path.splitext(filename)
+        if ext in VIDEO_TYPE:
+          return  VIDEO_TYPE[ext]
+        return VIDEO_TYPE['avi']
+
     def start(self):
 	# Start the thread that reads frames from the video stream
         Thread(target=self.update,args=()).start()
