@@ -51,6 +51,8 @@ print(len(desList))
 
 
 cap = cv2.VideoCapture(0)
+cap.set(3, 640)  # Set horizontal resolution
+cap.set(4, 480)  # Set vertical resolution
 
 while True:
 
