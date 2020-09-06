@@ -30,6 +30,7 @@ class VideoStream:
     def __init__(self,resolution=(640,480),framerate=30):
         # Initialize the PiCamera and the camera image stream
         self.stream = cv2.VideoCapture(0)
+        self.out = None
         ret = self.stream.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
         ret = self.stream.set(3,resolution[0])
         ret = self.stream.set(4,resolution[1])
@@ -52,6 +53,7 @@ class VideoStream:
             if self.stopped:
                 # Close camera resources
                 self.stream.release()
+                self.out.release()
                 return
 
             # Otherwise, grab the next frame from the stream
@@ -156,6 +158,7 @@ freq = cv2.getTickFrequency()
 
 # Initialize video stream
 videostream = VideoStream(resolution=(imW,imH),framerate=30).start()
+out = cv2.VideoWriter('hi.h264', get_video_type(hi.h264), 25, get_dims(self.stream, '720p'))
 time.sleep(1)
 
 #for frame1 in camera.capture_continuous(rawCapture, format="bgr",use_video_port=True):
@@ -166,6 +169,7 @@ while True:
 
     # Grab frame from video stream
     frame1 = videostream.read()
+    out.write(frame1)
 
     # Acquire frame and resize to expected shape [1xHxWx3]
     frame = frame1.copy()
