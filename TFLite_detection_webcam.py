@@ -30,7 +30,6 @@ class VideoStream:
     def __init__(self,resolution=(640,480),framerate=30):
         # Initialize the PiCamera and the camera image stream
         self.stream = cv2.VideoCapture(0)
-        self.out = cv2.VideoWriter('hi.h264', cv2.VideoWriter_fourcc(*'H264'), 25, (640,480))
         ret = self.stream.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
         ret = self.stream.set(3,resolution[0])
         ret = self.stream.set(4,resolution[1])
@@ -53,7 +52,6 @@ class VideoStream:
             if self.stopped:
                 # Close camera resources
                 self.stream.release()
-                self.out.release()
                 return
 
             # Otherwise, grab the next frame from the stream
@@ -62,9 +60,6 @@ class VideoStream:
     def read(self):
 	# Return the most recent frame
         return self.frame
-
-    def writeFrame(self, fm):
-        self.out.write(fm)
 
     def stop(self):
 	# Indicate that the camera and thread should be stopped
@@ -171,7 +166,7 @@ while True:
 
     # Grab frame from video stream
     frame1 = videostream.read()
-    videostream.writeFrame(frame1)
+
     # Acquire frame and resize to expected shape [1xHxWx3]
     frame = frame1.copy()
     frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
