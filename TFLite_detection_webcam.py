@@ -63,8 +63,8 @@ class VideoStream:
 	# Return the most recent frame
         return self.frame
 
-    def writeFrame(self):
-        self.out.write(self.frame)
+    def writeFrame(self, fm):
+        self.out.write(fm)
 
     def stop(self):
 	# Indicate that the camera and thread should be stopped
@@ -171,7 +171,7 @@ while True:
 
     # Grab frame from video stream
     frame1 = videostream.read()
-    videostream.writeFrame()
+    videostream.writeFrame(frame1)
     # Acquire frame and resize to expected shape [1xHxWx3]
     frame = frame1.copy()
     frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
