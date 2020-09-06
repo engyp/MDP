@@ -15,7 +15,7 @@ for cl in myList:
 	images.append(imgCur)
 	classNames.append(os.path.splitext(cl)[0])
 print(classNames)
-
+###########
 
 def findDes(images):
 	desList = []
@@ -58,9 +58,9 @@ while True:
 	imgOriginal = img2.copy()
 	img2 = cv2.cvtColor(img2,cv2.COLOR_BGR2GRAY)
 
-	# id = findID(img2,desList)
-	# if id != -1:
-	# 	cv2.putText(imgOriginal,classNames[id],(50,50),cv2.FONT_HERSHEY_COMPLEX,1,(0,0,255),2)
+	id = findID(img2,desList)
+	if id != -1:
+		cv2.putText(imgOriginal,classNames[id],(50,50),cv2.FONT_HERSHEY_COMPLEX,1,(0,0,255),2)
 
 	cv2.imshow('img2',imgOriginal)
 	cv2.waitKey(1)
