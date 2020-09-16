@@ -16,9 +16,9 @@ class SocketConnection():
 			self.socket.bind((self.host, self.port))
 			self.socket.listen(1)
 
-			print '\nSocket connecting...'
+			print('\nSocket connecting...')
 			self.conn, self.client_addr = self.socket.accept()
-			print '\nSocket Connected'
+			print('\nSocket Connected')
 
 		except Exception as e:
 			raise Exception('Socket connection error: {}'.format(str(e)))
