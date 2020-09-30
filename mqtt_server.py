@@ -30,7 +30,6 @@ class MqttServer():
 
         self.pcConnect.send(message)
 
-
     def on_message_android(self, client, userdata, msg):
         message = json.loads(str(msg.payload.decode("utf-8")).replace('\'','"'))
         message = json.dumps(message)
