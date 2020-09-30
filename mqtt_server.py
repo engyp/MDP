@@ -103,8 +103,8 @@ class MqttServer():
                         movement += item[0].upper()*int(item[1:])
 
     	    elif (message['topic'] == 'pull sensor'):
-        		content = 'V'
-        		self.sConnect.send(content)
+                content = 'V'
+                self.sConnect.send(content)
 
                 # simulation
                 # content = [3,3,3,3,3,3]
