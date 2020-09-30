@@ -1,0 +1,13 @@
+{"destination": "android","content": {"position": "(1,1)", "map": "FFF", "orientation": "90"},"topic": "update after movement"}
+{"destination": "android","content": {"position": "(1,1)", "map": "C0007F00FE01FC03F807F00FE01FC03F807F00FE01FC03F807F00FE01FC03F807F07E00FC01F,0204081020408102040810204081020000", "orientation": "90"},"topic": "update after movement"}
+
+{'destination': 'arduino', 'content':'exs', 'topic':'pull sensor'}
+
+
+{'destination': 'arduino', 'content':'w1', 'topic':'exploration move'}
+
+
+{'destination': 'arduino', 'content':['w3', 'l', 'r'], 'topic':'beginFastest'}
+
+
+

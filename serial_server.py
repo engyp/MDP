@@ -2,7 +2,7 @@ import serial
 import sys, traceback
 
 class SerialConnection():
-	def __init__(self, baud_rate = 115200, port = '/dev/serial/by-id/usb-Arduino__www.arduino.cc__0043_75833353035351603131-if00'):
+	def __init__(self, baud_rate = 115200, port = '/dev/serial/by-id/usb-Arduino__www.arduino.cc__0043_A413937363035160E1F0-if00'):
 		self.port = port
 		self.serialCon = None
 		self.baud_rate = baud_rate

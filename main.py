@@ -7,7 +7,7 @@ import mqtt_server
 
 
 def bluetooth_loop(mqttServer):
-	#while True:
+	while True:
 		try:
 			mqttServer.btConnect = BluetoothConnection()
 			mqttServer.btConnect.disconnect()
@@ -15,7 +15,8 @@ def bluetooth_loop(mqttServer):
 			while True:
 				data = mqttServer.btConnect.receive()
 				if data is None: break
-				print("received [%s] from android" % data)
+				if data != '':
+					print("received %s from android" % data)
 				#mqttServer.btConnect.send("\nreply back from rpi")
 				publish.single("android", data, hostname="192.168.30.1")
 			mqttServer.btConnect.disconnect()
@@ -28,7 +29,7 @@ def bluetooth_loop(mqttServer):
 			traceback.print_exc(limit=10, file=sys.stdout)
 
 def pc_loop(mqttServer):
-	#while True:
+	while True:
 		try:
 			mqttServer.pcConnect = SocketConnection()
 			mqttServer.pcConnect.disconnect()
@@ -36,7 +37,8 @@ def pc_loop(mqttServer):
 			while True:
 				data = mqttServer.pcConnect.receive()
 				if data == 'quit': break
-				print("received [%s] from PC" % data)
+				if data != '':
+					print("received %s from PC" % data)
 				publish.single("pc", data, hostname="192.168.30.1")
 			mqttServer.pcConnect.disconnect()
 
@@ -56,7 +58,8 @@ def arduino_loop(mqttServer):
 			while True:
 				data = mqttServer.sConnect.receive()
 				if data is None: break
-				print("received [%s] from arduino" % data) 
+				if data != '':
+					print("received %s from arduino" % data) 
 				publish.single("arduino", data, hostname="192.168.30.1")
 			mqttServer.sConnect.disconnect()
 
@@ -70,10 +73,9 @@ def arduino_loop(mqttServer):
 
 mqttServer = mqtt_server.MqttServer()
 
-#sThread = threading.Thread(target=arduino_loop, args=((mqttServer,)), name = 'Arduino Thread')
-#sThread.setDaemon(True)
-#sThread.start()
-#sThread.join()
+sThread = threading.Thread(target=arduino_loop, args=((mqttServer,)), name = 'Arduino Thread')
+sThread.setDaemon(True)
+sThread.start()
 
 btThread = threading.Thread(target=bluetooth_loop, args=((mqttServer,)), name = 'Bluetooth Thread')
 btThread.setDaemon(True)
@@ -89,9 +91,12 @@ mqttThread.start()
 
 
 while True:
+	sThread.join(0.1)
 	btThread.join(0.1)
 	pcThread.join(0.1)
 	mqttThread.join(0.1)
+	if not sThread.isAlive():
+		break
 	if not btThread.isAlive():
 		break
 	if not pcThread.isAlive():
