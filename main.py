@@ -1,10 +1,14 @@
 from bluetooth_server import BluetoothConnection
 from socket_server import SocketConnection
 from serial_server import SerialConnection
-import sys, traceback, threading
+import sys, os, traceback, threading
 import paho.mqtt.publish as publish
-import mqtt_server
-
+import mqtt_server,time
+sys.path.append("/home/pi/.local/lib/python3.7/site-packages")
+sys.path.append("/home/pi")
+sys.path.append("/home/pi/MDP/tflite1")
+import cv2
+import TFLite_detection_webcam
 
 def bluetooth_loop(mqttServer):
 	while True:
@@ -16,6 +20,7 @@ def bluetooth_loop(mqttServer):
 				data = mqttServer.btConnect.receive()
 				if data is None: break
 				if data != '':
+					#print("received %s from android %s" % (data,time.strftime("%H: %M: %S",time.localtime())))
 					print("received %s from android" % data)
 				#mqttServer.btConnect.send("\nreply back from rpi")
 				publish.single("android", data, hostname="192.168.30.1")
@@ -38,7 +43,8 @@ def pc_loop(mqttServer):
 				data = mqttServer.pcConnect.receive()
 				if data == 'quit': break
 				if data != '':
-					print("received %s from PC" % data)
+					#print("received %s from pc %s" % (data,time.strftime("%H: %M: %S",time.localtime())))
+					print("received %s from pc" % data)
 				publish.single("pc", data, hostname="192.168.30.1")
 			mqttServer.pcConnect.disconnect()
 
@@ -50,7 +56,7 @@ def pc_loop(mqttServer):
 			traceback.print_exc(limit=10, file=sys.stdout)
 
 def arduino_loop(mqttServer):
-	#while True:
+#	while True:
 		try:
 			mqttServer.sConnect = SerialConnection()
 			mqttServer.sConnect.disconnect()
@@ -59,7 +65,8 @@ def arduino_loop(mqttServer):
 				data = mqttServer.sConnect.receive()
 				if data is None: break
 				if data != '':
-					print("received %s from arduino" % data) 
+					#print("received %s from arduino %s" % (data,time.strftime("%H: %M: %S",time.localtime())))
+					print("received %s from arduino" % data)
 				publish.single("arduino", data, hostname="192.168.30.1")
 			mqttServer.sConnect.disconnect()
 
@@ -72,6 +79,7 @@ def arduino_loop(mqttServer):
 
 
 mqttServer = mqtt_server.MqttServer()
+#ir = TFLite_detection_webcam.image
 
 sThread = threading.Thread(target=arduino_loop, args=((mqttServer,)), name = 'Arduino Thread')
 sThread.setDaemon(True)
@@ -85,6 +93,10 @@ pcThread = threading.Thread(target=pc_loop, args=((mqttServer,)), name = 'PC Thr
 pcThread.setDaemon(True)
 pcThread.start()
 
+irThread = threading.Thread(target=TFLite_detection_webcam.run)
+irThread.setDaemon(True)
+irThread.start()
+
 mqttThread = threading.Thread(target=mqttServer.run())
 mqttThread.setDaemon(True)
 mqttThread.start()
@@ -94,6 +106,7 @@ while True:
 	sThread.join(0.1)
 	btThread.join(0.1)
 	pcThread.join(0.1)
+	irThread.join(0.1)
 	mqttThread.join(0.1)
 	if not sThread.isAlive():
 		break
@@ -101,5 +114,7 @@ while True:
 		break
 	if not pcThread.isAlive():
 		break
+	if not irThread.isAlive():
+                break
 	if not mqttThread.isAlive():
 		break

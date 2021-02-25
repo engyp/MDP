@@ -1,0 +1,23 @@
+received {'destination':'arduino', 'content':'w1', 'topic':'exploration move'}{'destination': 'arduino', 'content': 'z111101', 'topic':'pull sensor'} from pc
+
+
+
+received {'destination':'arduino', 'content':'U', 'topic':'calibrate'}{'destination':'arduino', 'content':'r', 'topic':'exploration move'}{'destination': 'arduino', 'content': 'z111000', 'topic':'pull sensor'} from pc
+
+
+
+received {'destination': 'android', 'content': {'position': '(2,13)', 'map': 'E0007F80FF01FE03E007C00FF01FFE3FFC7FF8FFF1FFE3FFC7F00FE01FC03B8007070C0E181F,00000004200000000101E0010000000008E00000', 'orientation': '0'}, 'topic': 'update after movement'}{'destination': 'arduino', 'content': 'z111001', 'topic':'pull sensor'} from pc
+
+
+
+received {"destination": "android", "content": {"position": "(6,11)", "map": "E0007F80FF01FE03E007F80FF81FF83FFE7FF0FFE01FC0FF8038007000E000000007000E001F,000000043C0000800000FC1820100000", "orientation": "0"}, "topic": "update after movement"}{'destination':'arduino', 'content':'w1', 'topic':'exploration move'}{'destination': 'arduino', 'content': 'z111111', 'topic':'pull sensor'} from pc
+
+
+
+
+received {'destination':'android', 'content':'exe', 'topic':'exploration done'}{"destination": "android", "content": {"position": "(1,1)", "map": "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF,00000000000000000001F8C000800100020003C000800000000800700080F000000000000800", "orientation": "0"}, "topic": "update after movement"} from pc
+
+
+
+
+received {"destination": "android", "content": {"position": "(1,1)", "map": "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF,008002000800000000040008007007100800000000040007E2023C0000000000000000000400", "orientation": "270"}, "topic": "update after movement"}{'destination':'arduino', 'content':'r', 'topic':'exploration move'}{"destination": "android", "content": {"position": "(1,1)", "map": "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF,008002000800000000040008007007100800000000040007E2023C0000000000000000000400", "orientation": "0"}, "topic": "update after movement"}{'destination':'android', 'content':'exe', 'topic':'exploration done'}{'destination':'arduino', 'content':'C', 'topic':'calibrate'} from pc

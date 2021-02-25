@@ -13,6 +13,7 @@ class SocketConnection():
 		try:
 			self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 			self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+			self.socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
 			self.socket.bind((self.host, self.port))
 			self.socket.listen(1)
 
