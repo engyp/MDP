@@ -4,13 +4,13 @@ The Multidisciplinary Design Project (MDP) objective is to build a robotic syste
 ### System Components
 ![alt text](https://github.com/engyp/MDP/blob/master/Documentation/rpi%20diagram.png)
 
-### Raspberry Pi
+# Raspberry Pi
 [Raspberry Pi Setup](https://github.com/engyp/MDP/blob/master/Documentation/Setting%20up%20Raspberry%20Pi%20(Ver%202018a).pdf)
 
 
-### Tensorflow
+# Tensorflow
 
-#### Requirements
+### Requirements
 
 * TensorFlow 1.5
 *	TensorFlow-gpu 1.5
@@ -25,5 +25,20 @@ The Multidisciplinary Design Project (MDP) objective is to build a robotic syste
 *	Pandas 1.1.3
 *	Opencv-python 1.0
 
+### Imagine Recognition
+[Detailed Steps](https://github.com/engyp/MDP/blob/master/Documentation/Rpi%20Wiki.docx)
 
-[Steps](https://github.com/engyp/MDP/blob/master/Documentation/Rpi%20Wiki.docx)
+### Training Images
+![alt text](https://github.com/engyp/MDP/blob/master/Documentation/Training%20Samples.JPG)
+
+### Labelling Images and Classification
+![alt text](https://github.com/engyp/MDP/blob/master/Documentation/Labelling.JPG)
+
+### Model Training
+![alt text](https://github.com/engyp/MDP/blob/master/Documentation/model%20training%201.JPG)
+![alt text](https://github.com/engyp/MDP/blob/master/Documentation/model%20training%202.JPG)
+![alt text](https://github.com/engyp/MDP/blob/master/Documentation/model%20training%203.JPG)
+
+### Test out object detection
+![alt text](https://github.com/engyp/MDP/blob/master/Documentation/9_white.jpg)
+![alt text](https://github.com/engyp/MDP/blob/master/Documentation/w_green.jpg)
