@@ -36,6 +36,7 @@ The Multidisciplinary Design Project (MDP) objective is to build a robotic syste
 
 ### Model Training
 When training begins, it will step through training batches and reporting the loss at each step. At the start, the loss rate is high, and it gets lower as the object detection classifier trains.
+
 ![alt text](https://github.com/engyp/MDP/blob/master/Documentation/model%20training%201.JPG)
 
 After few hours of training, the loss should be around 0.05 to be accurate enough. Terminal the program by press CTRL+C.
