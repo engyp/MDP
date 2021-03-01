@@ -37,6 +37,11 @@ The Multidisciplinary Design Project (MDP) objective is to build a robotic syste
 ### Model Training
 ![alt text](https://github.com/engyp/MDP/blob/master/Documentation/model%20training%201.JPG)
 ![alt text](https://github.com/engyp/MDP/blob/master/Documentation/model%20training%202.JPG)
+
+
+
+
+
 ![alt text](https://github.com/engyp/MDP/blob/master/Documentation/model%20training%203.JPG)
 
 ### Test out object detection
