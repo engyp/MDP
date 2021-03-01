@@ -40,6 +40,7 @@ When training begins, it will step through training batches and reporting the lo
 ![alt text](https://github.com/engyp/MDP/blob/master/Documentation/model%20training%201.JPG)
 
 After few hours of training, the loss should be around 0.05 to be accurate enough. Terminal the program by press CTRL+C.
+
 ![alt text](https://github.com/engyp/MDP/blob/master/Documentation/model%20training%202.JPG)
 
 In the Tensorboard, select TotalLoss tab to see the overall loss of the classifier over time. X axis is the loss rate and Y axis is the number of steps.
