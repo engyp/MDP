@@ -43,6 +43,7 @@ After few hours of training, the loss should be around 0.05 to be accurate enoug
 ![alt text](https://github.com/engyp/MDP/blob/master/Documentation/model%20training%202.JPG)
 
 In the Tensorboard, select TotalLoss tab to see the overall loss of the classifier over time. X axis is the loss rate and Y axis is the number of steps.
+
 ![alt text](https://github.com/engyp/MDP/blob/master/Documentation/model%20training%203.JPG)
 
 ### Test out object detection
